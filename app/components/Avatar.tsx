@@ -1,4 +1,4 @@
-'use item';
+'use client';
 
 import Image from "next/image"
 
