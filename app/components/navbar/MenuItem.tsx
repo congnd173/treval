@@ -1,4 +1,4 @@
-'use item';
+'use client';
 
 interface MenuItemProps{
     onClick: () => void;

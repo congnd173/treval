@@ -1,4 +1,4 @@
-'use item';
+'use client';
 
 import Container from "../Container"
 import Categories from "./Categories";
