@@ -1,20 +1,22 @@
 "use client";
 
-import useRentModal from "@/app/hooks/useRentModal";
-import Modal from "./Modal";
+import axios from "axios";
+
 import { useMemo, useState } from "react";
+import useRentModal from "@/app/hooks/useRentModal";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+
+import Modal from "./Modal";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import CountrySelect from "../inputs/CountrySelect";
-import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
-import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
 
 enum STEPS {
   CATEGORY = 0,
@@ -46,7 +48,7 @@ const RentModal = () => {
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
-      imageSrc: "",
+      imageSrc: [],
       price: 1,
       title: "",
       description: "",
@@ -201,7 +203,7 @@ const RentModal = () => {
         <ImageUpload
           value={imageSrc}
           onChange={(value) => {
-            setCustomValue("imageSrc", value);
+            setCustomValue("imageSrc", [...imageSrc, value]);
           }}
         />
       </div>

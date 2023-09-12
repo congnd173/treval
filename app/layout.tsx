@@ -28,7 +28,7 @@ export default async function RootLayout({
       <head>
         <link rel="shortcut icon" href="/images/icon.ico" type="image/x-icon" />
       </head>
-      <body className={font.className}>
+      <body className={font.className} suppressHydrationWarning={true}>
         <ClientOnly>
           <ToasterProvider />
           <RegisterModal />
