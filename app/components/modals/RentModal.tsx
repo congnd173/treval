@@ -3,20 +3,21 @@
 import axios from "axios";
 
 import { useMemo, useState } from "react";
-import useRentModal from "@/app/hooks/useRentModal";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import useRentModal from "@/app/hooks/useRentModal";
 
-import Modal from "./Modal";
-import Heading from "../Heading";
-import { categories } from "../navbar/Categories";
-import CategoryInput from "../inputs/CategoryInput";
-import CountrySelect from "../inputs/CountrySelect";
-import Counter from "../inputs/Counter";
-import ImageUpload from "../inputs/ImageUpload";
-import Input from "../inputs/Input";
-import { toast } from "react-hot-toast";
+import Modal from "@/app/components/modals/Modal";
+import Heading from "@/app/components/Heading";
+import { categories } from "@/app/components/navbar/Categories";
+import CategoryInput from "@/app/components/inputs/CategoryInput";
+import CountrySelect from "@/app/components/inputs/CountrySelect";
+import Counter from "@/app/components/inputs/Counter";
+import ImageUpload from "@/app/components/inputs/ImageUpload";
+import Input from "@/app/components/inputs/Input";
+import Map from "@/app/components/Map";
 
 enum STEPS {
   CATEGORY = 0,
