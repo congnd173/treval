@@ -5,6 +5,8 @@ import { SafeUser } from "@/app/types";
 import Heading from "../Heading";
 import Image from "next/image";
 import HeartButton from "../HeartButton";
+import { Carousel, IconButton } from "@material-tailwind/react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 interface ListingHeadProps {
   title: string;
@@ -31,13 +33,54 @@ const ListingHead = ({
         subtitle={`${location?.region},${location?.label}`}
       />
       <div className=" w-full h-[60vh] overflow-hidden rounded-xl relative">
-        <Image
-          alt="Image"
-          src={imgSrc[0]}
-          fill
-          className="object-cover w-full"
-        />
-        <div className="absolute top-5 right-5">
+        <Carousel
+          navigation={({ setActiveIndex, activeIndex, length }) => (
+            <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+              {new Array(length).fill("").map((_, i) => (
+                <span
+                  key={i}
+                  className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                    activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
+                  }`}
+                  onClick={() => setActiveIndex(i)}
+                />
+              ))}
+            </div>
+          )}
+          prevArrow={({ handlePrev }) => (
+            <IconButton
+              variant="text"
+              color="white"
+              size="lg"
+              onClick={handlePrev}
+              className="!absolute top-2/4 left-4 -translate-y-2/4 z-20"
+            >
+              <FiChevronLeft size={48} />
+            </IconButton>
+          )}
+          nextArrow={({ handleNext }) => (
+            <IconButton
+              variant="text"
+              color="white"
+              size="lg"
+              onClick={handleNext}
+              className="!absolute top-2/4 !right-4 -translate-y-2/4 z-20"
+            >
+              <FiChevronRight size={48} />
+            </IconButton>
+          )}
+        >
+          {imgSrc.map((src, index) => (
+            <Image
+              alt="Image"
+              src={src}
+              fill
+              key={src}
+              className={`object-cover w-full ${index === 0 ? " z-10" : ""}`}
+            />
+          ))}
+        </Carousel>
+        <div className="absolute top-5 right-5 z-20">
           <HeartButton listingId={id} currentUser={currentUser} />
         </div>
       </div>
