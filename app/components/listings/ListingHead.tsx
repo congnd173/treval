@@ -35,7 +35,7 @@ const ListingHead = ({
       <div className=" w-full h-[60vh] overflow-hidden rounded-xl relative">
         <Carousel
           navigation={({ setActiveIndex, activeIndex, length }) => (
-            <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+            <div className="absolute bottom-4 left-2/4 z-20 flex -translate-x-2/4 gap-2">
               {new Array(length).fill("").map((_, i) => (
                 <span
                   key={i}

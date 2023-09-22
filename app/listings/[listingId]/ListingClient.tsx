@@ -2,12 +2,11 @@
 import { Range } from "react-date-range";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Reservation } from "@prisma/client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
 
-import { SafeUser, SafeListing } from "@/app/types";
+import { SafeUser, SafeListing, SafeReservation } from "@/app/types";
 import { categories } from "@/app/components/navbar/Categories";
 import Container from "@/app/components/Container";
 import ListingHead from "@/app/components/listings/ListingHead";
@@ -22,7 +21,7 @@ const initialDateRange = {
 };
 
 interface ListingClientProps {
-  reservations?: Reservation[];
+  reservations?: SafeReservation[];
   listing: SafeListing & {
     user: SafeUser;
   };
@@ -30,9 +29,9 @@ interface ListingClientProps {
 }
 
 const ListingClient = ({
-  currentUser,
   listing,
   reservations = [],
+  currentUser,
 }: ListingClientProps) => {
   const loginModal = useLoginModal();
   const router = useRouter();
@@ -55,6 +54,7 @@ const ListingClient = ({
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+  const [dateCount, setDateCount] = useState(0);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -90,13 +90,23 @@ const ListingClient = ({
         dateRange.startDate
       );
 
+      setDateCount(dayCount);
+
       if (dayCount && listing.price) {
         setTotalPrice(dayCount * listing.price);
       } else {
-        setTotalPrice(listing.price);
+        setTotalPrice(0);
       }
     }
   }, [dateRange, listing.price]);
+
+  useEffect(() => {
+    if (dateCount < 1) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [dateCount]);
 
   const category = useMemo(() => {
     return categories.find((item) => item.label === listing.category);
@@ -128,6 +138,7 @@ const ListingClient = ({
                 totalPrice={totalPrice}
                 onChangeDate={(value) => setDateRange(value)}
                 dateRange={dateRange}
+                dateCount={dateCount}
                 onSubmit={onCreateReservation}
                 disabled={isLoading}
                 disabledDates={disabledDates}

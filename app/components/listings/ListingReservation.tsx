@@ -11,6 +11,7 @@ interface ListingReservationProps {
   onChangeDate: (value: Range) => void;
   onSubmit: () => void;
   disabled: boolean;
+  dateCount: number;
   disabledDates: Date[];
 }
 
@@ -20,6 +21,7 @@ const ListingReservation = ({
   dateRange,
   onChangeDate,
   onSubmit,
+  dateCount,
   disabled,
   disabledDates,
 }: ListingReservationProps) => {
@@ -40,8 +42,10 @@ const ListingReservation = ({
         <Button disabled={disabled} label="Reserve" onClick={onSubmit} />
       </div>
       <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
-        <div>Total</div>
-        <div>$ {totalPrice}</div>
+        <div>
+          {dateCount} {dateCount <= 1 ? "night" : "nights"}
+        </div>
+        <div>Total ${totalPrice}</div>
       </div>
     </div>
   );
