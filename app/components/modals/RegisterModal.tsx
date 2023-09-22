@@ -97,12 +97,12 @@ const RegisterModal = () => {
         icon={AiFillGithub}
         onClick={() => signIn("github")}
       />
-      <div className="text-gray-500 mt-4 font-light text-center">
+      <div className="text-neutral-500 mt-4 font-light text-center">
         <div className="flex flex-row justify-center gap-2">
           <div>Already have an account?</div>
           <div
             onClick={toggle}
-            className="text-gray-800 cursor-pointer hover:text-pink-300 font-semibold hover:underline"
+            className="text-neutral-800 cursor-pointer hover:text-rose-500 font-semibold hover:underline"
           >
             Log in
           </div>

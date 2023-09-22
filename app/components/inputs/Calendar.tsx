@@ -13,7 +13,7 @@ interface CalendarProps {
 const Calendar = ({ value, onChange, disabledDates }: CalendarProps) => {
   return (
     <DateRange
-      rangeColors={["#262626"]}
+      rangeColors={["rgb(244 63 94)"]}
       ranges={[value]}
       date={new Date()}
       onChange={onChange}

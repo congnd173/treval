@@ -29,8 +29,12 @@ const Button = ({
                 disabled:cursor-not-allowed 
                 rounded-lg hover:opacity-30 
                 transition w-full
-                ${outline ? " bg-white" : "bg-pink-300"}
-                ${outline ? " border-black" : "bg-pink-300"}
+                ${
+                  outline
+                    ? " bg-white"
+                    : "bg-gradient-to-r from-rose-500 to-purple-500"
+                }
+                ${outline ? " border-black" : " "}
                 ${outline ? " text-black" : "text-white"}
                 ${small ? " py-1" : "py-3"}
                 ${small ? " text-sm" : "text-md"}

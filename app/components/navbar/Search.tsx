@@ -10,9 +10,9 @@ const Search = () => {
         <div className="hidden sm:block text-sm font-semibold px-6 border-x-[1px] flex-1 text-center">
           Anyweek
         </div>
-        <div className="text-sm pl-6 pr-2 text-gray-600 flex flex-row items-center gap-3">
+        <div className="text-sm pl-6 pr-2 text-neutral-600 flex flex-row items-center gap-3">
           <div className="hidden sm:block">Add Guest</div>
-          <div className="p-2 bg-pink-300 rounded-full text-white">
+          <div className="p-2 bg-gradient-to-r from-rose-500 to-purple-500 rounded-full text-white">
             <BiSearch size={18} />
           </div>
         </div>

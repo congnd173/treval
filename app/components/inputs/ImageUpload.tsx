@@ -48,7 +48,7 @@ const ImageUpload = ({ onChange, value }: ImageUploadProps) => {
               {value && !value.length && (
                 <div
                   onClick={() => open?.()}
-                  className="relative cursor-pointer hover:border-gray-600 rounded-2xl hover:text-gray-600 transition border-dashed border-2 p-40 border-gray-400 flex flex-col justify-center items-center gap-4 text-gray-400"
+                  className="relative cursor-pointer hover:border-neutral-600 rounded-2xl hover:text-neutral-600 transition border-dashed border-2 p-40 border-neutral-400 flex flex-col justify-center items-center gap-4 text-neutral-400"
                 >
                   <TbPhotoPlus size={50} />
                   <div className="font-semibold text-lg">Upload here!</div>
@@ -77,7 +77,7 @@ const ImageUpload = ({ onChange, value }: ImageUploadProps) => {
                     ))}
                     <div
                       onClick={() => open?.()}
-                      className="relative cursor-pointer hover:border-gray-600 rounded-lg hover:text-gray-600 transition border-dashed border-2 w-40 h-40 m-2 border-gray-400 flex flex-col justify-center items-center gap-4 text-gray-400"
+                      className="relative cursor-pointer hover:border-neutral-600 rounded-lg hover:text-neutral-600 transition border-dashed border-2 w-40 h-40 m-2 border-neutral-400 flex flex-col justify-center items-center gap-4 text-neutral-400"
                     >
                       <TbPhotoPlus size={32} />
                       <div className="font-semibold text-md">Upload here!</div>

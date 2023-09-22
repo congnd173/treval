@@ -40,7 +40,9 @@ const ListingHead = ({
                 <span
                   key={i}
                   className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                    activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
+                    activeIndex === i
+                      ? "w-8 bg-gradient-to-r from-rose-500 to-purple-500"
+                      : "w-4 bg-white/50"
                   }`}
                   onClick={() => setActiveIndex(i)}
                 />
@@ -50,10 +52,10 @@ const ListingHead = ({
           prevArrow={({ handlePrev }) => (
             <IconButton
               variant="text"
-              color="white"
+              color="pink"
               size="lg"
               onClick={handlePrev}
-              className="!absolute top-2/4 left-4 -translate-y-2/4 z-20"
+              className="!absolute top-2/4 left-4 -translate-y-2/4"
             >
               <FiChevronLeft size={48} />
             </IconButton>
@@ -61,14 +63,15 @@ const ListingHead = ({
           nextArrow={({ handleNext }) => (
             <IconButton
               variant="text"
-              color="white"
+              color="purple"
               size="lg"
               onClick={handleNext}
-              className="!absolute top-2/4 !right-4 -translate-y-2/4 z-20"
+              className="!absolute top-2/4 !right-4 -translate-y-2/4"
             >
               <FiChevronRight size={48} />
             </IconButton>
           )}
+          loop
         >
           {imgSrc.map((src, index) => (
             <Image
@@ -76,11 +79,11 @@ const ListingHead = ({
               src={src}
               fill
               key={src}
-              className={`object-cover w-full ${index === 0 ? " z-10" : ""}`}
+              className={`object-cover w-full ${index === 0 ? "" : "-z-10"}`}
             />
           ))}
         </Carousel>
-        <div className="absolute top-5 right-5 z-20">
+        <div className="absolute top-5 right-5 z-10">
           <HeartButton listingId={id} currentUser={currentUser} />
         </div>
       </div>
