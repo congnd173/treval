@@ -9,6 +9,7 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
+  fullWidth?: boolean;
 }
 
 const Button = ({
@@ -18,6 +19,7 @@ const Button = ({
   small,
   outline,
   icon: Icon,
+  fullWidth,
 }: ButtonProps) => {
   return (
     <button
@@ -28,7 +30,8 @@ const Button = ({
                 disabled:opacity-70 
                 disabled:cursor-not-allowed 
                 rounded-lg hover:opacity-30 
-                transition w-full
+                transition
+                ${fullWidth ? "w-full" : "px-8"}
                 ${
                   outline
                     ? " bg-white"

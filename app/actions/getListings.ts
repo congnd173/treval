@@ -80,6 +80,9 @@ export default async function getListings(params: IListingsParams) {
       orderBy: {
         createAt: "desc",
       },
+      include: {
+        ratings: true,
+      },
     });
 
     const safeListings = listings.map((listing) => ({

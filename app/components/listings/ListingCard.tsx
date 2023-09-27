@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import HeartButton from "../HeartButton";
 import Button from "../Button";
+import { AiFillHeart } from "react-icons/ai";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -18,6 +19,7 @@ interface ListingCardProps {
   actionLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
+  avgRating: number;
 }
 
 const ListingCard = ({
@@ -28,6 +30,7 @@ const ListingCard = ({
   actionId = "",
   actionLabel,
   currentUser,
+  avgRating,
 }: ListingCardProps) => {
   const router = useRouter();
   const { getByValue } = useCountries();
@@ -87,6 +90,10 @@ const ListingCard = ({
         <div className="font-light text-neutral-500">
           {reservationDate || data.category}
         </div>
+        <div className="flex flex-row gap-2 items-center">
+          <AiFillHeart color="rgb(244 63 94)" />
+          {avgRating.toFixed(1)}
+        </div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-semi-bold">$ {price}</div>
           {!reservation && <div className="font-light">/ night</div>}
@@ -95,6 +102,7 @@ const ListingCard = ({
           <Button
             disabled={disabled}
             small
+            fullWidth
             label={actionLabel}
             onClick={handleCancel}
           />

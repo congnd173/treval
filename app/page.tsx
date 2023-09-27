@@ -14,15 +14,35 @@ const Home = async ({ searchParams }: HomeProps) => {
   const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
-  if (listings.length === 0) {
+  const listingsWithAverage = listings.map((listing: any) => {
+    const ratings = listing.ratings;
+    if (ratings && ratings.length > 0) {
+      const totalRatingCount = ratings.reduce(
+        (sum: number, rating: any) => sum + rating.ratingCount,
+        0
+      );
+      const averageRatingCount = totalRatingCount / ratings.length;
+      return {
+        ...listing,
+        averageRatingCount,
+      };
+    } else {
+      return {
+        ...listing,
+        averageRatingCount: 0,
+      };
+    }
+  });
+
+  console.log(listingsWithAverage);
+
+  if (listingsWithAverage.length === 0) {
     return (
       <ClientOnly>
         <EmptyState showReset />
       </ClientOnly>
     );
   }
-
-  // throw new Error("test");
 
   return (
     <ClientOnly>
@@ -40,11 +60,12 @@ const Home = async ({ searchParams }: HomeProps) => {
             gap-8
           "
         >
-          {listings.map((listing: any) => (
+          {listingsWithAverage.map((listing: any) => (
             <ListingCard
               currentUser={currentUser}
               key={listing.id}
               data={listing}
+              avgRating={listing.averageRatingCount} // Pass the averageRatingCount as a prop
             />
           ))}
         </div>

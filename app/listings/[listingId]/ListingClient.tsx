@@ -6,13 +6,19 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
 
-import { SafeUser, SafeListing, SafeReservation } from "@/app/types";
+import {
+  SafeUser,
+  SafeListing,
+  SafeReservation,
+  SafeRating,
+} from "@/app/types";
 import { categories } from "@/app/components/navbar/Categories";
 import Container from "@/app/components/Container";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import ListingReservation from "@/app/components/listings/ListingReservation";
+import ListingComments from "@/app/components/listings/ListingComments";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -26,12 +32,14 @@ interface ListingClientProps {
     user: SafeUser;
   };
   currentUser?: SafeUser | null;
+  ratings?: SafeRating[];
 }
 
 const ListingClient = ({
   listing,
   reservations = [],
   currentUser,
+  ratings = [],
 }: ListingClientProps) => {
   const loginModal = useLoginModal();
   const router = useRouter();
@@ -51,10 +59,15 @@ const ListingClient = ({
     return dates;
   }, [reservations]);
 
+  console.log(ratings);
+
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const [dateCount, setDateCount] = useState(0);
+
+  const [ratingBody, setRatingBody] = useState("");
+  const [ratingCount, setRatingCount] = useState(0);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -82,6 +95,32 @@ const ListingClient = ({
         setIsLoading(false);
       });
   }, [loginModal, currentUser, totalPrice, router, listing?.id, dateRange]);
+
+  const onSubmitRating = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+
+    setIsLoading(true);
+    axios
+      .post("/api/ratings", {
+        ratingBody,
+        ratingCount,
+        listingId: listing?.id,
+      })
+      .then(() => {
+        toast.success("You have rate this accomodation.");
+        setRatingBody("");
+        setRatingCount(0);
+        router.refresh();
+      })
+      .catch(() => {
+        toast.error("Something went wrong");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [currentUser, loginModal, listing?.id, ratingCount, ratingBody, router]);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
@@ -144,6 +183,17 @@ const ListingClient = ({
                 disabledDates={disabledDates}
               />
             </div>
+          </div>
+          <hr />
+          <div className="mt-1">
+            <ListingComments
+              ratingBody={ratingBody}
+              ratingCount={ratingCount}
+              onChangeCount={(value) => setRatingCount(value)}
+              onSubmit={onSubmitRating}
+              onChangeBody={(value) => setRatingBody(value)}
+              data={ratings}
+            />
           </div>
         </div>
       </div>

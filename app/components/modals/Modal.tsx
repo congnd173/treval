@@ -91,12 +91,14 @@ const Modal = ({
                     disabled={disabled}
                     label={secondaryActionLabel}
                     onClick={handleSecondaryAction}
+                    fullWidth
                   />
                 )}
                 <Button
                   disabled={disabled}
                   label={actionLabel}
                   onClick={handleSubmit}
+                  fullWidth
                 />
               </div>
               {footer}
