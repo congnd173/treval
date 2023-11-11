@@ -37,8 +37,8 @@ const Button = ({
                     ? " bg-white"
                     : "bg-gradient-to-r from-rose-500 to-purple-500"
                 }
-                ${outline ? " border-black" : " "}
-                ${outline ? " text-black" : "text-white"}
+                ${outline ? " border-rose-700" : " "}
+                ${outline ? " text-rose-700" : "text-white"}
                 ${small ? " py-1" : "py-3"}
                 ${small ? " text-sm" : "text-md"}
                 ${small ? " font-light" : "font-semibold"}

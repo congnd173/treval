@@ -15,11 +15,13 @@ interface ListingCardProps {
   data: SafeListing;
   reservation?: SafeReservation;
   onAction?: (id: string) => void;
+  onSecondaryAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
+  secondActionLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
-  avgRating: number;
+  avgRating?: number;
 }
 
 const ListingCard = ({
@@ -31,9 +33,12 @@ const ListingCard = ({
   actionLabel,
   currentUser,
   avgRating,
+  onSecondaryAction,
+  secondActionLabel,
 }: ListingCardProps) => {
   const router = useRouter();
   const { getByValue } = useCountries();
+  console.log(avgRating);
 
   const location = getByValue(data.locationValue);
   const handleCancel = useCallback(
@@ -47,6 +52,19 @@ const ListingCard = ({
       onAction?.(actionId);
     },
     [onAction, actionId, disabled]
+  );
+
+  const handleDetail = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+
+      if (disabled) {
+        return;
+      }
+
+      onSecondaryAction?.(actionId);
+    },
+    [onSecondaryAction, actionId, disabled]
   );
 
   const price = useMemo(() => {
@@ -90,23 +108,42 @@ const ListingCard = ({
         <div className="font-light text-neutral-500">
           {reservationDate || data.category}
         </div>
-        <div className="flex flex-row gap-2 items-center">
-          <AiFillHeart color="rgb(244 63 94)" />
-          {avgRating.toFixed(1)}
-        </div>
+        {!!avgRating && (
+          <div className="flex flex-row gap-2 items-center">
+            <AiFillHeart color="rgb(244 63 94)" />
+            {avgRating.toFixed(1)}
+          </div>
+        )}
         <div className="flex flex-row items-center gap-1">
-          <div className="font-semi-bold">$ {price}</div>
+          <div className="font-semibold">$ {price}</div>
           {!reservation && <div className="font-light">/ night</div>}
         </div>
-        {onAction && actionLabel && (
-          <Button
-            disabled={disabled}
-            small
-            fullWidth
-            label={actionLabel}
-            onClick={handleCancel}
-          />
+        {reservation && (
+          <div className="text-gray-500">
+            {reservation.status}
+          </div>
         )}
+        <div className="flex flex-row gap-1">
+          {onSecondaryAction && secondActionLabel && (
+            <Button
+              disabled={disabled}
+              small
+              fullWidth
+              label={secondActionLabel}
+              onClick={handleDetail}
+            />
+          )}
+          {onAction && actionLabel && reservation?.status !== "Paid" && (
+            <Button
+              disabled={disabled}
+              small
+              fullWidth
+              outline
+              label={actionLabel}
+              onClick={handleCancel}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

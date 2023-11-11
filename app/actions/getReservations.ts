@@ -28,6 +28,7 @@ export default async function getReservations(params: IParams) {
       where: query,
       include: {
         listing: true,
+        user: true
       },
       orderBy: {
         createAt: "desc",
@@ -43,6 +44,12 @@ export default async function getReservations(params: IParams) {
         ...reservation.listing,
         createAt: reservation.listing.createAt.toISOString(),
       },
+      user:{
+        ...reservation.user,
+        createAt: reservation.user.createAt.toISOString(),
+        updateAt: reservation.user.updateAt.toISOString(),
+        emailVerified: reservation.user.emailVerified?.toISOString() || null,
+      }
     }));
 
     return safeReservations;

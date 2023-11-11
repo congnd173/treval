@@ -38,6 +38,10 @@ const TripClient = ({ reservations, currentUser }: TripClientProps) => {
     },
     [router]
   );
+
+  const onDetail = (id: string) =>{
+    router.push(`/trips/${id}`);
+  }
   return (
     <Container>
       <Heading
@@ -55,6 +59,8 @@ const TripClient = ({ reservations, currentUser }: TripClientProps) => {
             disabled={deletingId === reservation.id}
             actionLabel="Cancel reservation"
             currentUser={currentUser}
+            onSecondaryAction={onDetail}
+            secondActionLabel="Reservation detail"
           />
         ))}
       </div>

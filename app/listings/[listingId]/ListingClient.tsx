@@ -59,7 +59,7 @@ const ListingClient = ({
     return dates;
   }, [reservations]);
 
-  console.log(ratings);
+  // console.log(ratings);
 
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);

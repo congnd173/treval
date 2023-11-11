@@ -30,7 +30,7 @@ const ImageUpload = ({ onChange, value }: ImageUploadProps) => {
     router.refresh();
   };
 
-  console.log(value);
+  // console.log(value);
 
   return (
     <div>

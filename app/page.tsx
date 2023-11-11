@@ -34,7 +34,7 @@ const Home = async ({ searchParams }: HomeProps) => {
     }
   });
 
-  console.log(listingsWithAverage);
+  // console.log(listingsWithAverage);
 
   if (listingsWithAverage.length === 0) {
     return (
@@ -65,7 +65,7 @@ const Home = async ({ searchParams }: HomeProps) => {
               currentUser={currentUser}
               key={listing.id}
               data={listing}
-              avgRating={listing.averageRatingCount} // Pass the averageRatingCount as a prop
+              avgRating={listing.averageRatingCount}
             />
           ))}
         </div>

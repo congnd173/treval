@@ -30,3 +30,27 @@ export async function DELETE(
   });
   return NextResponse.json(resevation);
 }
+
+export async function PATCH(req: Request, { params }: { params: IParams }) {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    return NextResponse.error();
+  }
+
+  const { reservationId } = params;
+
+  if (!reservationId || typeof reservationId !== "string") {
+    throw new Error("Invalid ID");
+  }
+
+  const reservation = await prisma.reservation.update({
+    where: {
+      id: reservationId
+    }, 
+    data:{
+      status: "Unpaid"
+    }
+  })
+
+  return NextResponse.json(reservation);
+}
