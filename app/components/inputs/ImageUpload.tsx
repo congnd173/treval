@@ -29,9 +29,6 @@ const ImageUpload = ({ onChange, value }: ImageUploadProps) => {
     value.splice(index, 1);
     router.refresh();
   };
-
-  // console.log(value);
-
   return (
     <div>
       <CldUploadWidget

@@ -1,9 +1,10 @@
+import prisma from "@/app/libs/prismadb";
+
 interface IParams {
   listingId?: string;
   userId?: string;
   authorId?: string;
 }
-import prisma from "@/app/libs/prismadb";
 
 export default async function getRatings(params: IParams) {
   try {

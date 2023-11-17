@@ -34,8 +34,6 @@ const Home = async ({ searchParams }: HomeProps) => {
     }
   });
 
-  // console.log(listingsWithAverage);
-
   if (listingsWithAverage.length === 0) {
     return (
       <ClientOnly>

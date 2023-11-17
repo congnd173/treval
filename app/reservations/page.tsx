@@ -4,6 +4,7 @@ import ReservationClient from "./ReservationClient";
 
 import getCurrentUser from "../actions/getCurrentUser";
 import getReservations from "../actions/getReservations";
+import getPurchase from "../actions/getPurchase";
 
 const ReservationPage = async () => {
   const currentUser = await getCurrentUser();
@@ -20,6 +21,10 @@ const ReservationPage = async () => {
     authorId: currentUser.id,
   });
 
+  const purchases = await getPurchase({
+    authorId: currentUser.id,
+  })
+
   if (reservations.length === 0) {
     return (
       <ClientOnly>
@@ -35,6 +40,7 @@ const ReservationPage = async () => {
       <ReservationClient
         reservations={reservations}
         currentUser={currentUser}
+        purchases={purchases}
       />
     </ClientOnly>
   );

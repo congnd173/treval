@@ -38,7 +38,6 @@ const ListingCard = ({
 }: ListingCardProps) => {
   const router = useRouter();
   const { getByValue } = useCountries();
-  console.log(avgRating);
 
   const location = getByValue(data.locationValue);
   const handleCancel = useCallback(
