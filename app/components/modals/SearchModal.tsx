@@ -14,6 +14,7 @@ import { formatISO } from "date-fns";
 import Heading from "../Heading";
 import Calendar from "../inputs/Calendar";
 import Counter from "../inputs/Counter";
+import Map from "../Map";
 
 enum STEPS {
   LOCATION = 1,
@@ -37,13 +38,13 @@ const SearchModal = () => {
     key: "selection",
   });
 
-  const Map = useMemo(
-    () =>
-      dynamic(() => import("../Map"), {
-        ssr: false,
-      }),
-    [location]
-  );
+  // const Map = useMemo(
+  //   () =>
+  //     dynamic(() => import("../Map"), {
+  //       ssr: false,
+  //     }),
+  //   [location]
+  // );
 
   const onBack = useCallback(() => {
     setStep((value) => value - 1);
